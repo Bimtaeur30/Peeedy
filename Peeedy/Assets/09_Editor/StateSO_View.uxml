@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:TextField label="State name" placeholder-text="filler text" name="StateNameField" />
+        <ui:TextField label="State Index" placeholder-text="filler text" name="StateIndexField" />
+        <ui:DropdownField label="Class Name" name="ClassDropdownField" />
+        <uie:ObjectField label="Anim param" name="AnimParamField" type="AnimParamSO, Assembly-CSharp" />
+        <ui:Label text="Not selected" name="ClassNameLabel" />
+    </ui:VisualElement>
+</ui:UXML>
