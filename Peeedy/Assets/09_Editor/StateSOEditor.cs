@@ -21,17 +21,17 @@ public class StateSOEditor : UnityEditor.Editor
 
         CreateDropDownList(dropdownField);
 
-        dropdownField.RegisterValueChangedCallback(AA);
+        dropdownField.RegisterValueChangedCallback(HandleDropdownFieldChange);
         return root;
     }
 
     private void HandleDropdownFieldChange(ChangeEvent<string> evt)
     {
-        StateSO targetData = target as StateSO;
-        targetData.className = evt.newValue;
+        StateSO targetData = target as StateSO; // 현재 편집중인 so
+        targetData.className = evt.newValue; // 드롭다운 값 반영
 
-        EditorUtility.SetDirty(targetData);
-        AssetDatabase.SaveAssets();
+        EditorUtility.SetDirty(targetData); // 변경됨 표시
+        AssetDatabase.SaveAssets(); // 디스크에 저장
     }
 
     private void CreateDropDownList(DropdownField targetField)
