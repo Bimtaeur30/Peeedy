@@ -27,20 +27,24 @@ public class StateSOEditor : UnityEditor.Editor
 
     private void HandleDropdownFieldChange(ChangeEvent<string> evt)
     {
-        StateSO targetData = target as StateSO; // 현재 편집중인 so
-        targetData.className = evt.newValue; // 드롭다운 값 반영
+        StateSO targetData = target as StateSO;
+        targetData.className = evt.newValue;
 
-        EditorUtility.SetDirty(targetData); // 변경됨 표시
-        AssetDatabase.SaveAssets(); // 디스크에 저장
+        EditorUtility.SetDirty(targetData);
+        AssetDatabase.SaveAssets();
     }
-
+    //aa
     private void CreateDropDownList(DropdownField targetField)
     {
         targetField.choices.Clear();
+        //AgentState를 포함하는 어셈블리 가져오기
         Assembly stateAssembly = Assembly.GetAssembly(typeof(AgentState));
 
         List<Type> derivedTypes = stateAssembly.GetTypes()
-            .Where(type => type.IsClass && type.IsAbstract == false && type.IsSubclassOf(typeof(AgentState))).ToList();
+            .Where(type => type.IsClass
+                           && type.IsAbstract == false
+                           && type.IsSubclassOf(typeof(AgentState)))
+            .ToList();
 
         derivedTypes.ForEach(type => targetField.choices.Add(type.FullName));
 

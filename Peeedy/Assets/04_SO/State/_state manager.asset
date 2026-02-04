@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14f22542737f7ce4a98adcd499c9af2b, type: 3}
-  m_Name: State data
+  m_Script: {fileID: 11500000, guid: 5d52a28289d16c34a85b35474cc0ec19, type: 3}
+  m_Name: _state manager
   m_EditorClassIdentifier: 
-  stateName: 
-  className: 
-  stateIndex: 0
-  stateParam: {fileID: 0}
+  enumName: PlayerStateEnum
+  states:
+  - {fileID: 11400000, guid: 933495bfaec8e3e40a51ab39d00f4c34, type: 2}
+  - {fileID: 11400000, guid: a5001a3b8221299449e1ad3d1d7103df, type: 2}
