@@ -9,6 +9,6 @@ public interface IMover
     void SetMoveSpeedMultiplier(float value);
     void AddForceToAgent(Vector3 force);
     void StopImmediately();
-    void SetMovement(Vector3 vector); 
-
+    void SetMovement(Vector3 vector);
+    ParticleSystem GetParticle();
 }

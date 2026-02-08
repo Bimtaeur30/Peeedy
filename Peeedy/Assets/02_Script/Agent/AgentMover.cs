@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystem))]
 public class AgentMover : MonoBehaviour, IModule, IMover
 {
     [Header("Agent values")]
@@ -9,6 +10,7 @@ public class AgentMover : MonoBehaviour, IModule, IMover
     private Agent _owner;
     private Rigidbody _rigidbody;
     private IRenderer _renderer;
+    private ParticleSystem _particle;
 
     private Vector3 _movement;
     private float _moveSpeedMultiplier;
@@ -22,7 +24,7 @@ public class AgentMover : MonoBehaviour, IModule, IMover
         _owner = owner as Agent;
         _rigidbody = owner.GetComponent<Rigidbody>();
         _renderer = owner.GetModule<IRenderer>();
-
+        _particle = GetComponent<ParticleSystem>();
         _moveSpeedMultiplier = 1f;
     }
 
@@ -43,6 +45,11 @@ public class AgentMover : MonoBehaviour, IModule, IMover
     {
         _movement = vector;
         _renderer.FlipController(_movement.x);
+    }
+
+    public ParticleSystem GetParticle()
+    {
+        return _particle;
     }
 
     private void FixedUpdate()

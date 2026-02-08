@@ -4,8 +4,16 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerWalkState : AbstractPlayerState
 {
+    private ParticleSystem _particle;
     public PlayerWalkState(Agent agent, AnimParamSO paramSO) : base(agent, paramSO)
     {
+        _particle = _mover.GetParticle();
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+        _particle.Play();
     }
 
     public override void Update()
@@ -17,5 +25,11 @@ public class PlayerWalkState : AbstractPlayerState
         {
             _player.ChangeState(PlayerStateEnum.IDLE);
         }
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+        _particle.Stop();
     }
 }                                                                                                                

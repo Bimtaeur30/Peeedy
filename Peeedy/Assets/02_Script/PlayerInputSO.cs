@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(fileName = "PlayerInputSO", menuName = "SO/Core/PlayerInputSO")]
 public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 {
-    public event Action JumpEvent;
-
+    public event Action LeftMouseClickEvent;
     public Vector3 InputDirection { get; private set; }
 
     private Controls _controls;
@@ -31,5 +30,11 @@ public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
     {
         Vector2 vec = context.ReadValue<Vector2>();
         InputDirection = new Vector3(vec.x, 0, vec.y);
+    }
+
+    public void OnMouseLeftClick(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        LeftMouseClickEvent?.Invoke();
     }
 }
