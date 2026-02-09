@@ -109,6 +109,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToolEquip"",
+                    ""type"": ""Button"",
+                    ""id"": ""a027d8f4-0834-4cfe-8697-70c75c8a7c2f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToolUnEquip"",
+                    ""type"": ""Button"",
+                    ""id"": ""decae7eb-2e92-4518-b81b-b02fe9de0122"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -177,6 +195,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""MouseLeftClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ceb65ebe-e7fd-4c1e-aebf-56735a1c78d2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToolEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7abedaa5-c9a5-483f-af65-1405e66bfd4c"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToolUnEquip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +227,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MouseLeftClick = m_Player.FindAction("MouseLeftClick", throwIfNotFound: true);
+        m_Player_ToolEquip = m_Player.FindAction("ToolEquip", throwIfNotFound: true);
+        m_Player_ToolUnEquip = m_Player.FindAction("ToolUnEquip", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -269,6 +311,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_MouseLeftClick;
+    private readonly InputAction m_Player_ToolEquip;
+    private readonly InputAction m_Player_ToolUnEquip;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -288,6 +332,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/MouseLeftClick".
         /// </summary>
         public InputAction @MouseLeftClick => m_Wrapper.m_Player_MouseLeftClick;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToolEquip".
+        /// </summary>
+        public InputAction @ToolEquip => m_Wrapper.m_Player_ToolEquip;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToolUnEquip".
+        /// </summary>
+        public InputAction @ToolUnEquip => m_Wrapper.m_Player_ToolUnEquip;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -320,6 +372,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MouseLeftClick.started += instance.OnMouseLeftClick;
             @MouseLeftClick.performed += instance.OnMouseLeftClick;
             @MouseLeftClick.canceled += instance.OnMouseLeftClick;
+            @ToolEquip.started += instance.OnToolEquip;
+            @ToolEquip.performed += instance.OnToolEquip;
+            @ToolEquip.canceled += instance.OnToolEquip;
+            @ToolUnEquip.started += instance.OnToolUnEquip;
+            @ToolUnEquip.performed += instance.OnToolUnEquip;
+            @ToolUnEquip.canceled += instance.OnToolUnEquip;
         }
 
         /// <summary>
@@ -337,6 +395,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @MouseLeftClick.started -= instance.OnMouseLeftClick;
             @MouseLeftClick.performed -= instance.OnMouseLeftClick;
             @MouseLeftClick.canceled -= instance.OnMouseLeftClick;
+            @ToolEquip.started -= instance.OnToolEquip;
+            @ToolEquip.performed -= instance.OnToolEquip;
+            @ToolEquip.canceled -= instance.OnToolEquip;
+            @ToolUnEquip.started -= instance.OnToolUnEquip;
+            @ToolUnEquip.performed -= instance.OnToolUnEquip;
+            @ToolUnEquip.canceled -= instance.OnToolUnEquip;
         }
 
         /// <summary>
@@ -391,5 +455,19 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouseLeftClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToolEquip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToolEquip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToolUnEquip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToolUnEquip(InputAction.CallbackContext context);
     }
 }

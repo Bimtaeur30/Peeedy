@@ -9,6 +9,7 @@ public class Player : Agent
 
     private AgentStateMachine _stateMachine;
     private ICombatModule _combatModule;
+    private ToolHandlerModule _toolHandlerModule;
 
     [field:SerializeField] public PlayerInputSO PlayerInput { get; private set; }
 
@@ -22,8 +23,21 @@ public class Player : Agent
     {
         base.AfterInitComponents();
         _combatModule = GetModule<ICombatModule>();
+        _toolHandlerModule = GetModule<ToolHandlerModule>();
 
         PlayerInput.LeftMouseClickEvent += HandleAttackKeyPressed;
+        PlayerInput.OnToolEquipEvent += HandleToolEquipKeyPressed;
+        PlayerInput.OnToolUnEquipEvent += HandleToolUnEquipKeyPressed;
+    }
+
+    private void HandleToolUnEquipKeyPressed()
+    {
+        _toolHandlerModule.UnEquipTool();
+    }
+
+    private void HandleToolEquipKeyPressed()
+    {
+        _toolHandlerModule.EquipTool();
     }
 
     private void HandleAttackKeyPressed()

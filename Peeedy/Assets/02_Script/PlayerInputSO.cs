@@ -7,6 +7,10 @@ using UnityEngine.InputSystem;
 public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 {
     public event Action LeftMouseClickEvent;
+
+    public event Action OnToolEquipEvent;
+    public event Action OnToolUnEquipEvent;
+
     public Vector3 InputDirection { get; private set; }
 
     private Controls _controls;
@@ -36,5 +40,21 @@ public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
     {
         if (!context.performed) return;
         LeftMouseClickEvent?.Invoke();
+    }
+
+    public void OnToolEquip(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnToolEquipEvent?.Invoke();
+        }
+    }
+
+    public void OnToolUnEquip(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnToolUnEquipEvent?.Invoke();
+        }
     }
 }
