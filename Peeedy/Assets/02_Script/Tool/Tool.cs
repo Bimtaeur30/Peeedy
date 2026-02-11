@@ -1,29 +1,40 @@
 using TMPro;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
-public class Tool : MonoBehaviour
+public abstract class Tool : MonoBehaviour
 {
+    [SerializeField] private AudioClip toolEquipClip;
+    [SerializeField] private AudioClip toolDropClip;
     [SerializeField] private EventChannelSO toolInfoCallEventChannel;
     [SerializeField] private ToolSO toolSO;
     private Rigidbody body;
+    private AudioSource audioSource;
 
     //public bool IsToolEquiped { get; private set; }
-
-    private void Awake()
+    protected virtual void Awake()
     {
         body = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
-    //public void EquipTool() => IsToolEquiped = true;
-    //public void UnEquipTool() => IsToolEquiped = false;
+    public virtual void EquipTool()
+    {
+        audioSource.PlayOneShot(toolEquipClip);
+    }
+    public virtual void UnEquipTool()
+    {
+        audioSource.PlayOneShot(toolDropClip);
+    }
 
-    public void ShowToolLabel()
+    public virtual void ShowToolLabel()
     {
         toolInfoCallEventChannel.RaiseEvent(new ToolInfoCallEvent(gameObject.transform, true, toolSO));
     }
 
-    public void HideToolLabel()
+    public virtual void HideToolLabel()
     {
         toolInfoCallEventChannel.RaiseEvent(new ToolInfoCallEvent(gameObject.transform, false, toolSO));
     }

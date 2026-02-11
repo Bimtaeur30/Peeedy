@@ -1,16 +1,20 @@
-using System.Runtime.InteropServices;
+ï»¿using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ConfigurableJoint))]
 public class ToolHandlerModule : MonoBehaviour, IModule
 {
+    [Header("Settings")]
     [SerializeField] private EventChannelSO toolInfoCallEventChannel;
     [SerializeField] private float toolDetectiveRadius = 1.0f;
     [SerializeField] private LayerMask toolLayer;
-    private ConfigurableJoint _joint;
-    private Tool _lastSelectedTool;
 
-    public bool IsToolEquiped { get; private set; } // ÇöÀç ÀåÂøÇÑ ÅøÀÌ ÀÖ´Â°¡
+    [Header("State")]
+    private ConfigurableJoint _joint;
+    private Tool _lastDetectedTool; // 'Selected'ë³´ë‹¤ 'Detected'ê°€ íƒìƒ‰ ì˜ë¯¸ì— ë” ì í•©í•©ë‹ˆë‹¤.
+
+    public Tool CurrentlyEquipedTool { get; private set; }
+    public bool IsToolEquiped => CurrentlyEquipedTool != null; // í”„ë¡œí¼í‹°ë¥¼ í†µí•´ ìƒíƒœ ê´€ë¦¬
 
     public void Initialize(ModuleOwner owner)
     {
@@ -19,52 +23,93 @@ public class ToolHandlerModule : MonoBehaviour, IModule
 
     private void Update()
     {
-        if (IsToolEquiped) return; // ÇöÀç ÀåÂøÁßÀÎ µµ±¸°¡ ÀÖ´Ù¸é °Ë»çÇÏÁö ¾ÊÀ½
+        // ì´ë¯¸ ë„êµ¬ë¥¼ ë“¤ê³  ìˆë‹¤ë©´ ì£¼ë³€ íƒìƒ‰ì„ í•˜ì§€ ì•ŠìŒ
+        if (IsToolEquiped) return;
 
+        ScanForTools();
+    }
+
+    private void ScanForTools()
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, toolDetectiveRadius, toolLayer);
-        if (hits.Length == 0 )
+
+        Tool foundTool = null;
+        float distance = -1f;
+        foreach (var hit in hits)
         {
-            _lastSelectedTool?.HideToolLabel();
-            _lastSelectedTool = null;
-            return;
-        }
-        foreach (Collider hit in hits)
-        {
-            if (hit.TryGetComponent<Tool>(out Tool tool)) // ¸®Áöµå¹Ùµğ ¸»°í Åø ½ºÅ©¸³Æ®·Î ±³Ã¼ÇÏ±â
+            if (hit.TryGetComponent<Tool>(out var tool))
             {
-                if (_lastSelectedTool == tool) return;// Àü¿¡ ¼±ÅÃµÈ°Å¶û °°Àº ÅøÀÌ¶ó¸é ½ºÅµ
-                else // ´Ù¸£´Ù¸é ¼±ÅÃ UI²¨ÁÖ°í »õ·Î¿î Åø·Î °»½ÅÇØÁÖ±â
+                float exDistance = Vector3.Distance(gameObject.transform.position, hit.transform.position);
+                if (exDistance < distance || distance == -1f)
                 {
-                    _lastSelectedTool?.HideToolLabel();
-                    _lastSelectedTool = tool;
-                    _lastSelectedTool.ShowToolLabel();
-                    Debug.Log("¿ìÇìÂm");
+                    distance = exDistance;
+                    foundTool = tool;
                 }
             }
+        }
+
+        if (foundTool == null)
+        {
+            ClearDetectedTool();
+            return;
+        }
+
+        if (_lastDetectedTool == foundTool) return;
+
+        ClearDetectedTool();
+        _lastDetectedTool = foundTool;
+        _lastDetectedTool.ShowToolLabel();
+    }
+
+    private void ClearDetectedTool()
+    {
+        if (_lastDetectedTool != null)
+        {
+            _lastDetectedTool.HideToolLabel();
+            _lastDetectedTool = null;
         }
     }
 
     public void EquipTool()
     {
-        if (_lastSelectedTool == null) return;
-        Rigidbody rigidbody = _lastSelectedTool.GetRigidbody();
+        if (_lastDetectedTool == null || IsToolEquiped) return;
 
-        _joint.connectedBody = rigidbody;
-        toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent());
-        IsToolEquiped = true;
+        // 1. ì°¸ì¡° ë¨¼ì € ì €ì¥
+        CurrentlyEquipedTool = _lastDetectedTool;
+
+        // 2. ë¬¼ë¦¬ ì¡°ì¸íŠ¸ ë° ì‚¬ìš´ë“œ ì‹¤í–‰
+        _joint.connectedBody = CurrentlyEquipedTool.GetRigidbody();
+        CurrentlyEquipedTool.EquipTool();
+
+        // 3. [ì¤‘ìš”] 'ì¥ì°© ì™„ë£Œ' ì´ë²¤íŠ¸ë¥¼ ë¨¼ì € ë³´ëƒ…ë‹ˆë‹¤.
+        // Viewerê°€ ì´ ì´ë²¤íŠ¸ë¥¼ ë¨¼ì € ë°›ì•„ì„œ UI ë‚´ìš©ì„ "ë‚´ë ¤ë†“ê¸°(Q)"ë¡œ ë°”ê¿€ ìˆ˜ ìˆê²Œ í•©ë‹ˆë‹¤.
+        toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform));
+
+        // 4. ê·¸ ë‹¤ìŒ ê°ì§€ìš© ë³€ìˆ˜ë¥¼ ë¹„ì›Œì¤ë‹ˆë‹¤.
+        // ì´ë•Œ ClearDetectedTool ë‚´ë¶€ì— HideToolLabelì´ ìˆë‹¤ë©´ 
+        // Viewerì—ì„œ "ì¥ì°© ì¤‘ì¼ ë• ë¬´ì‹œ"í•˜ëŠ” ë¡œì§ì´ í•„ìš”í•©ë‹ˆë‹¤.
+        _lastDetectedTool = null;
+
+        Debug.Log("Equip Event Raised Successfully!");
     }
 
     public void UnEquipTool()
     {
+        if (!IsToolEquiped) return;
+
+        // í•´ì œ ë¡œì§
+        CurrentlyEquipedTool.UnEquipTool();
         _joint.connectedBody = null;
-        _lastSelectedTool = null;
+
+        // ì´ë²¤íŠ¸ ì•Œë¦¼
         toolInfoCallEventChannel.RaiseEvent(new ToolUnEquipEvent());
-        IsToolEquiped = false;
+
+        CurrentlyEquipedTool = null;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = IsToolEquiped ? Color.green : Color.red;
         Gizmos.DrawWireSphere(transform.position, toolDetectiveRadius);
     }
 }

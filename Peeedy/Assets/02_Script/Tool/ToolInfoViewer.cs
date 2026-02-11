@@ -33,28 +33,37 @@ public class ToolInfoViewer : MonoBehaviour
         }
     }
 
+    private bool _isEquiped = false; // 장착 상태 추적
+
     private void HandleToolInfoCallEvt(ToolInfoCallEvent evt)
     {
+        // 이미 장착 중이라면 바닥에 있는 다른 도구의 Label 요청은 무시합니다.
+        if (_isEquiped) return;
+
         _isInfoActivate = evt.IsActivate;
+        toolInfoLabelUI.gameObject.SetActive(evt.IsActivate);
+
         if (evt.IsActivate)
         {
-            toolInfoLabelUI.gameObject.SetActive(true);
             toolNameTxt.text = evt.ToolSO.toolName;
+            keyTxt.text = "E"; // 기본 줍기 키
             _currentSelectedTool = evt.ToolPosition;
-        }
-        else
-        {
-            toolInfoLabelUI.gameObject.SetActive(false);
         }
     }
 
     private void HandleToolEquipEvt(ToolEquipEvent evt)
     {
+        _isEquiped = true;
+        _isInfoActivate = true; // 장착 중에도 위치 업데이트는 계속 수행
+
+        toolInfoLabelUI.gameObject.SetActive(true); // 혹시 꺼졌다면 다시 킴
         keyTxt.text = "Q";
         toolNameTxt.text = "내려놓기";
     }
+
     private void HandleToolunEquipEvt(ToolUnEquipEvent evt)
     {
-        keyTxt.text = "E";
+        _isEquiped = false;
+        toolInfoLabelUI.gameObject.SetActive(false); // 내려놓으면 일단 UI 끔
     }
 }

@@ -1,6 +1,13 @@
 using UnityEngine;
 public class ToolUnEquipEvent : GameEvent { }
-public class ToolEquipEvent : GameEvent { }
+public class ToolEquipEvent : GameEvent
+{
+    public Transform ToolPosition { get; private set; }
+    public ToolEquipEvent(Transform toolPosition)
+    {
+        ToolPosition = toolPosition;
+    }
+}
 public class ToolInfoCallEvent : GameEvent
 {
     public Transform ToolPosition { get; private set; }
