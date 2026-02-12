@@ -1,32 +1,34 @@
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Chat : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
     [SerializeField] private TextMeshPro textMeshPro;
     [SerializeField] private Vector2 padding;
 
-    private void Start()
+    private Animator _animator;
+
+    private void Awake()
     {
-        // 테스트용 호출
-        Setup("으악 너무 시끄러워!");
+        _animator = GetComponent<Animator>();
     }
 
-    private void Setup(string text)
+    public void Setup(string text)
     {
         // 텍스트 설정 및 업데이트
         textMeshPro.SetText(text);
         textMeshPro.ForceMeshUpdate();
-
-        // 텍스트의 실제 렌더링된 크기를 가져옵니다.
         Vector2 textSize = textMeshPro.GetRenderedValues(false);
-
-        // 여백(Padding) 설정
-        //Vector2 padding = new Vector2(4f, 2f);
-
-        // 배경 스프라이트의 크기를 (텍스트 크기 + 여백)으로 조절합니다.
-        // 주의: 배경 스프라이트의 Draw Mode가 'Sliced'로 되어 있어야 합니다.
         backgroundSpriteRenderer.size = textSize + padding;
+
+        _animator.SetTrigger("POP");
+    }
+
+    public void Close()
+    {
+        Destroy(gameObject);
     }
 }

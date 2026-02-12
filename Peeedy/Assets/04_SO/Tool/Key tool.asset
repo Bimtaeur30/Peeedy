@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Key tool
   m_EditorClassIdentifier: 
   <toolName>k__BackingField: "\uC5F4\uC1E0"
+  <toolDetectRange>k__BackingField: 2
+  <messageSO>k__BackingField: {fileID: 11400000, guid: 38d88d856d1c7864e99b63d1a1f1e201, type: 2}

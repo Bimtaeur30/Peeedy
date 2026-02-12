@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585641831bb76404f9cc11e9107a8437, type: 3}
+  m_Name: Noisiness message
+  m_EditorClassIdentifier: 
+  Tag: 1
+  Messages:
+  - "\uC790\uB124! \uB108\uBB34 \uC2DC\uB044\uB7FD\uC796\uC544."
+  - "\uACE0\uB9C9\uC774 \uD130\uC9C8\uAC83\uAC19\uC544!!"
+  - "\uC800\uAE30, \uC870\uC6A9\uD788\uC880 \uD574\uC8FC\uC2E4\uB798\uC694?"
+  - "\uC57C \uC870\uC6A9\uD788\uD574!"

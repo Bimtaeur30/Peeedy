@@ -83,14 +83,12 @@ public class ToolHandlerModule : MonoBehaviour, IModule
 
         // 3. [중요] '장착 완료' 이벤트를 먼저 보냅니다.
         // Viewer가 이 이벤트를 먼저 받아서 UI 내용을 "내려놓기(Q)"로 바꿀 수 있게 합니다.
-        toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform));
+        toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform, CurrentlyEquipedTool.toolSO));
 
         // 4. 그 다음 감지용 변수를 비워줍니다.
         // 이때 ClearDetectedTool 내부에 HideToolLabel이 있다면 
         // Viewer에서 "장착 중일 땐 무시"하는 로직이 필요합니다.
         _lastDetectedTool = null;
-
-        Debug.Log("Equip Event Raised Successfully!");
     }
 
     public void UnEquipTool()

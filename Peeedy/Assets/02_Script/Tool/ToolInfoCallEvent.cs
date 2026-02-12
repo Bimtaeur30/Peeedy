@@ -3,9 +3,11 @@ public class ToolUnEquipEvent : GameEvent { }
 public class ToolEquipEvent : GameEvent
 {
     public Transform ToolPosition { get; private set; }
-    public ToolEquipEvent(Transform toolPosition)
+    public ToolSO ToolSO { get; private set; }
+    public ToolEquipEvent(Transform toolPosition, ToolSO toolSO)
     {
         ToolPosition = toolPosition;
+        ToolSO = toolSO;
     }
 }
 public class ToolInfoCallEvent : GameEvent

@@ -9,7 +9,7 @@ public abstract class Tool : MonoBehaviour
     [SerializeField] private AudioClip toolEquipClip;
     [SerializeField] private AudioClip toolDropClip;
     [SerializeField] private EventChannelSO toolInfoCallEventChannel;
-    [SerializeField] private ToolSO toolSO;
+    [field:SerializeField] public ToolSO toolSO { get; private set; }
     private Rigidbody body;
     private AudioSource audioSource;
 
