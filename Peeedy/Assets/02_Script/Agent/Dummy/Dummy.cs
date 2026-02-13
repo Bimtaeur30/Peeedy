@@ -1,25 +1,27 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class Dummy : Agent
 {
+    public ChatHandlerModule ChatHandlerModule { get; private set; }
+    public NavMeshAgent agent { get; private set; }
+
     Coroutine _routine;
     DummyMessageSO _messageSO;
-    ChatHandlerModule _chatHandlerModule;
-    private AudioSource _audioSource;
-    [SerializeField] private AudioClip[] dummyVoiceSfxs;
 
     protected override void InitializeComponents()
     {
         base.InitializeComponents();
-        _audioSource = GetComponent<AudioSource>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
     }
 
     protected override void AfterInitComponents()
     {
         base.AfterInitComponents();
-        _chatHandlerModule = GetModule<ChatHandlerModule>();
+        ChatHandlerModule = GetModule<ChatHandlerModule>();
     }
 
     // ToolRangeVisualizer가 Enter 시 호출
@@ -84,8 +86,7 @@ public class Dummy : Agent
             }
 
             int idx = Random.Range(0, _messageSO.Messages.Length);
-            _chatHandlerModule.NewChat(_messageSO.Messages[idx]);
-            _audioSource.PlayOneShot(dummyVoiceSfxs[Random.Range(0, dummyVoiceSfxs.Length - 1)]);
+            ChatHandlerModule.NewChat(_messageSO.Messages[idx]);
             //Debug.Log(_messageSO.Messages[idx]);
 
             yield return new WaitForSeconds(Random.Range(1f, 2.5f));

@@ -52,8 +52,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _BaseScale: 2
-    - _LineCount: 10
-    - _LineLength: 0.51
+    - _LineCount: 11
+    - _LineLength: 0.6
     - _LineWidth: 0.93
     - _QueueControl: 0
     - _QueueOffset: 0

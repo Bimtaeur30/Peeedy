@@ -35,7 +35,7 @@ public partial class MoveToAction : Action
     [CreateProperty] private float m_OriginalSpeed = -1f;
     private float m_ColliderOffset;
     private float m_CurrentSpeed;
-    private Assistant m_Assistant;
+    private Agent m_Assistant;
     private IRenderer renderer;
 
     protected override Status OnStart()
@@ -44,7 +44,7 @@ public partial class MoveToAction : Action
         {
             return Status.Failure;
         }
-        m_Assistant = Agent.Value.GetComponent<Assistant>();
+        m_Assistant = Agent.Value.GetComponent<Agent>();
         m_Assistant.GetModule<AgentRunParticler>().PlayParticle();
         renderer = m_Assistant.GetModule<IRenderer>();
         return Initialize();
