@@ -5,6 +5,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Dummy : Agent
 {
+    [SerializeField] private EventChannelSO giftCallEventChannel;
+
     public ChatHandlerModule ChatHandlerModule { get; private set; }
     public NavMeshAgent agent { get; private set; }
 
@@ -87,6 +89,7 @@ public class Dummy : Agent
 
             int idx = Random.Range(0, _messageSO.Messages.Length);
             ChatHandlerModule.NewChat(_messageSO.Messages[idx]);
+            giftCallEventChannel.RaiseEvent(new GiftCallEvent(3000));
             //Debug.Log(_messageSO.Messages[idx]);
 
             yield return new WaitForSeconds(Random.Range(1f, 2.5f));

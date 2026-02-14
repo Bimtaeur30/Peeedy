@@ -18,7 +18,7 @@ public static class CodeFormat
 }
 
 [CustomEditor(typeof(StateListSO))]
-public class StateListSOEditor : UnityEditor.Editor
+public class StateListSOEditor : Editor
 {
     [SerializeField] private VisualTreeAsset stateListView = default;
 

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [CustomEditor(typeof(StateSO))]
-public class StateSOEditor : UnityEditor.Editor
+public class StateSOEditor : Editor
 {
     [SerializeField] private VisualTreeAsset stateView = default;
 
