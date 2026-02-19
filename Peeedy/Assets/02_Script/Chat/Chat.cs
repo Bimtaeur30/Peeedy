@@ -3,12 +3,15 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class Chat : MonoBehaviour
+public class Chat : PoolableMono
 {
+    [SerializeField] private PoolManagerSO poolManager;
     [SerializeField] private SpriteRenderer backgroundSpriteRenderer;
     [SerializeField] private TextMeshPro textMeshPro;
     [SerializeField] private Vector2 padding;
 
+
+    private Transform _followTarget;
     private Animator _animator;
 
     private void Awake()
@@ -16,8 +19,17 @@ public class Chat : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void Setup(string text)
+    private void LateUpdate()
     {
+        if (_followTarget == null) return;
+        transform.position = _followTarget.position;
+    }
+    
+
+    public void Setup(string text, Transform followTarget)
+    {
+        _followTarget = followTarget;
+
         // 텍스트 설정 및 업데이트
         textMeshPro.SetText(text);
         textMeshPro.ForceMeshUpdate();
@@ -29,6 +41,8 @@ public class Chat : MonoBehaviour
 
     public void Close()
     {
-        Destroy(gameObject);
+        poolManager.Push(this);
     }
+
+    public void ResetItem(){ }
 }

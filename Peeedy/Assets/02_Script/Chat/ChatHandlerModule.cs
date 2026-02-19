@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ChatHandlerModule : MonoBehaviour, IModule
 {
+    [SerializeField] private PoolManagerSO poolManager;
+    [SerializeField] private PoolItemSO poolItem;
     [SerializeField] private Chat chatPrefab;
     [SerializeField] private float chatLiftTime = 1.5f;
     [SerializeField] private AudioClip[] dummyVoiceSfxs;
@@ -20,8 +22,9 @@ public class ChatHandlerModule : MonoBehaviour, IModule
         _currentChat?.Close();
 
         _audioSource.PlayOneShot(dummyVoiceSfxs[Random.Range(0, dummyVoiceSfxs.Length - 1)]);
-        _currentChat = Instantiate(chatPrefab, transform);
-        _currentChat.Setup(message);
+        //_currentChat = Instantiate(chatPrefab, transform);
+        _currentChat = poolManager.Pop<Chat>(poolItem);
+        _currentChat.Setup(message, gameObject.transform);
 
         if (_chatTimerCoroutine != null)
             StopCoroutine(_chatTimerCoroutine);

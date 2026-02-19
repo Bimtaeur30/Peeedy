@@ -5038,7 +5038,7 @@ GameObject:
   - component: {fileID: 4213997087073397363}
   - component: {fileID: 6975930849738271927}
   m_Layer: 8
-  m_Name: ChatParent
+  m_Name: ChatModule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5071,6 +5071,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea0c97ee19af884ab5a48620c9ea18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolManager: {fileID: 11400000, guid: 494441d97ec99be49a2f3b3b3102d058, type: 2}
+  poolItem: {fileID: 11400000, guid: 04975d1576862b54aa5a0947692a3b3e, type: 2}
   chatPrefab: {fileID: 341881294069392961, guid: adb09081f9dfa7c4c954c0c579d9a8ee, type: 3}
   chatLiftTime: 1.5
   dummyVoiceSfxs:

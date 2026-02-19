@@ -315,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4335191aaed1a8a48ad87fead4edc98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PoolItem>k__BackingField: {fileID: 11400000, guid: 04975d1576862b54aa5a0947692a3b3e, type: 2}
+  poolManager: {fileID: 11400000, guid: 494441d97ec99be49a2f3b3b3102d058, type: 2}
   backgroundSpriteRenderer: {fileID: 4243648127207399548}
   textMeshPro: {fileID: 1609202799016260748}
   padding: {x: 3, y: 1.2}
