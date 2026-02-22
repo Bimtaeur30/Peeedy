@@ -127,6 +127,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BuildingEnter"",
+                    ""type"": ""Button"",
+                    ""id"": ""67b2b793-5b8f-40f1-883e-82ebc8faa565"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -217,6 +226,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""ToolUnEquip"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b2f94eb-8735-48c9-b78d-adad96c986c4"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BuildingEnter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -229,6 +249,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_MouseLeftClick = m_Player.FindAction("MouseLeftClick", throwIfNotFound: true);
         m_Player_ToolEquip = m_Player.FindAction("ToolEquip", throwIfNotFound: true);
         m_Player_ToolUnEquip = m_Player.FindAction("ToolUnEquip", throwIfNotFound: true);
+        m_Player_BuildingEnter = m_Player.FindAction("BuildingEnter", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -313,6 +334,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseLeftClick;
     private readonly InputAction m_Player_ToolEquip;
     private readonly InputAction m_Player_ToolUnEquip;
+    private readonly InputAction m_Player_BuildingEnter;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -340,6 +362,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ToolUnEquip".
         /// </summary>
         public InputAction @ToolUnEquip => m_Wrapper.m_Player_ToolUnEquip;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/BuildingEnter".
+        /// </summary>
+        public InputAction @BuildingEnter => m_Wrapper.m_Player_BuildingEnter;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -378,6 +404,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ToolUnEquip.started += instance.OnToolUnEquip;
             @ToolUnEquip.performed += instance.OnToolUnEquip;
             @ToolUnEquip.canceled += instance.OnToolUnEquip;
+            @BuildingEnter.started += instance.OnBuildingEnter;
+            @BuildingEnter.performed += instance.OnBuildingEnter;
+            @BuildingEnter.canceled += instance.OnBuildingEnter;
         }
 
         /// <summary>
@@ -401,6 +430,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @ToolUnEquip.started -= instance.OnToolUnEquip;
             @ToolUnEquip.performed -= instance.OnToolUnEquip;
             @ToolUnEquip.canceled -= instance.OnToolUnEquip;
+            @BuildingEnter.started -= instance.OnBuildingEnter;
+            @BuildingEnter.performed -= instance.OnBuildingEnter;
+            @BuildingEnter.canceled -= instance.OnBuildingEnter;
         }
 
         /// <summary>
@@ -469,5 +501,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToolUnEquip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "BuildingEnter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnBuildingEnter(InputAction.CallbackContext context);
     }
 }

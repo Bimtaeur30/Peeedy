@@ -10,6 +10,7 @@ public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 
     public event Action OnToolEquipEvent;
     public event Action OnToolUnEquipEvent;
+    public event Action OnBuildingEnterEvent;
 
     public Vector3 InputDirection { get; private set; }
 
@@ -55,6 +56,14 @@ public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
         if (context.performed)
         {
             OnToolUnEquipEvent?.Invoke();
+        }
+    }
+
+    public void OnBuildingEnter(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnBuildingEnterEvent?.Invoke();
         }
     }
 }

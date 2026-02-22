@@ -1,10 +1,11 @@
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Merchant : Agent
 {
+    [SerializeField] private BuildingSO buildingSO;
+    [SerializeField] private EventChannelSO buildingEnterEvent;
     private ChatHandlerModule _chatModule;
+    
     protected override void AfterInitComponents()
     {
         base.AfterInitComponents();
@@ -15,6 +16,7 @@ public class Merchant : Agent
         if (other.gameObject.CompareTag("Player"))
         {
             _chatModule.NewChat("어서오시오~");
+            buildingEnterEvent.RaiseEvent(new BuildingEnterEvent(buildingSO, true));
         }
     }
 
@@ -23,6 +25,7 @@ public class Merchant : Agent
         if (other.gameObject.CompareTag("Player"))
         {
             _chatModule.NewChat("다음에 또오세요!");
+            buildingEnterEvent.RaiseEvent(new BuildingEnterEvent(buildingSO, false));
         }
     }
 }
