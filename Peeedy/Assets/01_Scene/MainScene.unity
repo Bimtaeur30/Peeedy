@@ -10634,6 +10634,67 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &2883731886441424977
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1747338537229625123, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6235556667155110201, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_Name
+      value: GameSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 977.06683
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 509.39505
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.3481135
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524074699692956735, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3ae5a1f0704d5b349a5c82935a5f1f0d, type: 3}
 --- !u!114 &3011460186429534015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11003,8 +11064,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6d99989525d574ba5fa7ddedd08d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetSceneName: MarketScene
   buildingSO: {fileID: 11400000, guid: b0cff2c821a666649b3f10dd1a5087de, type: 2}
   buildingEnterEvent: {fileID: 11400000, guid: 9b3f2856371ebfb4caeed1d0a6f3dd55, type: 2}
+  playerInputSO: {fileID: 11400000, guid: 04ce8a15089d8ea418d5dce55a5bc63a, type: 2}
+  <UIChannel>k__BackingField: {fileID: 11400000, guid: 5dbd90e07aec4eb48b887caf0f7b80bc, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -11037,3 +11101,4 @@ SceneRoots:
   - {fileID: 1229058275}
   - {fileID: 580181357}
   - {fileID: 2056137428}
+  - {fileID: 2883731886441424977}
