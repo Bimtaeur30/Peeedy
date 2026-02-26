@@ -15,15 +15,19 @@ public class BuildingEnterUI : MonoBehaviour
 
     private void OnEnable()
     {
-        buildingEnterEvent.AddListener<BuildingEnterEvent>(OnEventUI);
+        buildingEnterEvent.AddListener<DoorTriggerEvent>(OnEventUI);
     }
 
 
-    private void OnEventUI(BuildingEnterEvent so)
+    private void OnEventUI(DoorTriggerEvent so)
     {
         if (so.IsEnter)
         {
-            buildingTxt.text = so.BuildingSO.BuildingName;
+            if (so.DoorType == DoorType.ExitDoor)
+                buildingTxt.text = so.BuildingSO.BuildingName + " ³ª°¡±â";
+            else
+                buildingTxt.text = so.BuildingSO.BuildingName;
+
             pannelRec.DOAnchorPosY(showPosY, animDuration).SetEase(animEase);
         }
         else

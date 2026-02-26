@@ -30,5 +30,7 @@ public class SceneEffectManager : MonoBehaviour
         {
             @event.EndCallback?.Invoke();
         });
+
+        UnityEngine.Debug.Log("aa");
     }
 }

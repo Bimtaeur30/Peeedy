@@ -5,15 +5,15 @@ using UnityEngine;
 public class MoneyUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moneyTxt;
-    [SerializeField] private EventChannelSO moneyEvent;
+    [SerializeField] private EventChannelSO playerChannel;
 
     private void OnEnable()
     {
-        moneyEvent.AddListener<MoneyEvent>(OnEvent);
+        playerChannel.AddListener<MoneyChanged>(OnEvent);
     }
 
-    private void OnEvent(MoneyEvent @event)
+    private void OnEvent(MoneyChanged @event)
     {
-        moneyTxt.text = "ภÜพื: "+@event.MoneyAmount.ToString();
+        moneyTxt.text = "ภÜพื: "+@event.amount.ToString();
     }
 }

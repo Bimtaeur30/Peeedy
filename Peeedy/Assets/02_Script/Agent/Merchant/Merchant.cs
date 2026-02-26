@@ -38,23 +38,23 @@ public class Merchant : Agent
         base.AfterInitComponents();
         _chatModule = GetModule<ChatHandlerModule>();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            _chatModule.NewChat("어서오시오~");
-            buildingEnterEvent.RaiseEvent(new BuildingEnterEvent(buildingSO, true));
-            _canEnter = true;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        _chatModule.NewChat("어서오시오~");
+    //        buildingEnterEvent.RaiseEvent(new DoorTriggerEvent(buildingSO, true));
+    //        _canEnter = true;
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            _chatModule.NewChat("다음에 또오세요!");
-            buildingEnterEvent.RaiseEvent(new BuildingEnterEvent(buildingSO, false));
-            _canEnter = false;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        _chatModule.NewChat("다음에 또오세요!");
+    //        buildingEnterEvent.RaiseEvent(new DoorTriggerEvent(buildingSO, false));
+    //        _canEnter = false;
+    //    }
+    //}
 }

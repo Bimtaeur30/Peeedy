@@ -3,6 +3,7 @@ using UnityEngine;
 public class GiftSystem : MonoBehaviour
 {
     [SerializeField] private EventChannelSO giftCallEventChannel;
+    [SerializeField] private EventChannelSO playerChannel;
 
     private void OnEnable()
     {
@@ -11,6 +12,7 @@ public class GiftSystem : MonoBehaviour
 
     private void OnGiftCall(GiftCallEvent @event)
     {
-        MoneyManager.Instance.CurrentMoney += @event.Amount;
+        //MoneyManager.Instance.CurrentMoney += @event.Amount;
+        playerChannel.RaiseEvent(PlayerEvents.AddMoney.Init(@event.Amount));
     }
 }

@@ -152,10 +152,56 @@ MonoBehaviour:
   textMeshProUGUI: {fileID: 6593542625413612425}
   effectDuration: 0.5
   textList:
-  - "\uB4E4\uC5B4\uAC00\uB294\uC911"
-  - "\uB4E4\uC5B4\uAC00\uB294\uC911."
-  - "\uB4E4\uC5B4\uAC00\uB294\uC911.."
-  - "\uB4E4\uC5B4\uAC00\uB294\uC911..."
+  - "\uC774\uB3D9\uD558\uB294\uC911"
+  - "\uC774\uB3D9\uD558\uB294\uC911."
+  - "\uC774\uB3D9\uD558\uB294\uC911.."
+  - "\uC774\uB3D9\uD558\uB294\uC911..."
+--- !u!1 &1720802154478453722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2052108632114072060}
+  - component: {fileID: 3636043948371813299}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2052108632114072060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720802154478453722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6524074699692956735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3636043948371813299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720802154478453722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71441a7d3d56a4143b78ea5eb844427c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefKey: saveData
+  <SystemChannel>k__BackingField: {fileID: 11400000, guid: e9d3f93386ba24d4584327a75026dbf0, type: 2}
 --- !u!1 &1953285251804393649
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +421,7 @@ Transform:
   m_Children:
   - {fileID: 8468029119369317589}
   - {fileID: 5992277596854126714}
+  - {fileID: 2052108632114072060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6405803134258738335
@@ -422,3 +469,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UIChannel>k__BackingField: {fileID: 11400000, guid: 5dbd90e07aec4eb48b887caf0f7b80bc, type: 2}
+  systemChannel: {fileID: 11400000, guid: e9d3f93386ba24d4584327a75026dbf0, type: 2}

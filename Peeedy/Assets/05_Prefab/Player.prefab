@@ -47,6 +47,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pivot: {fileID: 6904684728442191023}
   hand: {fileID: 883806276291610322}
+--- !u!1 &166196235544571560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 67942909749067670}
+  - component: {fileID: 1815542939892098639}
+  m_Layer: 6
+  m_Name: PlayerData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &67942909749067670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166196235544571560}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1165727428234770505}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1815542939892098639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166196235544571560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ac216fb574f9b40959c9bb233253ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentExp>k__BackingField: 0
+  <CurrentMoney>k__BackingField: 0
+  <PlayerChannel>k__BackingField: {fileID: 11400000, guid: 9f0f8f6cbfac5ad499125b7414f95dbc, type: 2}
+  <SaveId>k__BackingField: {fileID: 11400000, guid: 1c2b1712905d0e240b58e8f14068bed3, type: 2}
 --- !u!1 &522188810715988664
 GameObject:
   m_ObjectHideFlags: 0
@@ -5187,6 +5235,7 @@ Transform:
   - {fileID: 5059086129778083603}
   - {fileID: 52654269283112202}
   - {fileID: 6904684728442191023}
+  - {fileID: 67942909749067670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3293143653089639519
