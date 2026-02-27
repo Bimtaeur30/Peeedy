@@ -4,6 +4,8 @@ using UnityEngine;
 public static class UIEvents
 {
     public static readonly FadeEvent FadeEvent = new FadeEvent();
+    public static readonly InventoryToggleEvent InventoryToggleEvent = new InventoryToggleEvent();
+    public static readonly InventoryDrawEvent InventoryDrawEvent = new InventoryDrawEvent();
 }
 
 public class FadeEvent : GameEvent
@@ -17,6 +19,24 @@ public class FadeEvent : GameEvent
         IsFadeIn = isFadeIn;
         FadeDuration = fadeDuration;
         EndCallback = endCallback;
+        return this;
+    }
+}
+public class InventoryToggleEvent : GameEvent
+{
+    public bool IsOpen;
+    public InventoryToggleEvent Init(bool isOpen)
+    {
+        IsOpen = isOpen;
+        return this;
+    }
+}
+public class InventoryDrawEvent : GameEvent
+{
+    public ToolSO ToolSO;
+    public InventoryDrawEvent Init(ToolSO toolSO)
+    {
+        ToolSO = toolSO;
         return this;
     }
 }

@@ -7,6 +7,7 @@ public class ToolInfoViewer : MonoBehaviour
 {
     [SerializeField] private EventChannelSO toolInfoCallEventChannel;
     [SerializeField] private GameObject toolInfoLabelUI;
+    [SerializeField] private GameObject inventorySaveContainer;
     [SerializeField] private TextMeshProUGUI toolNameTxt;
     [SerializeField] private TextMeshProUGUI keyTxt;
 
@@ -48,6 +49,8 @@ public class ToolInfoViewer : MonoBehaviour
             toolNameTxt.text = evt.ToolSO.toolName;
             keyTxt.text = "E"; // 기본 줍기 키
             _currentSelectedTool = evt.ToolPosition;
+
+            inventorySaveContainer.SetActive(false);
         }
     }
 
@@ -59,6 +62,8 @@ public class ToolInfoViewer : MonoBehaviour
         toolInfoLabelUI.gameObject.SetActive(true); // 혹시 꺼졌다면 다시 킴
         keyTxt.text = "Q";
         toolNameTxt.text = "내려놓기";
+
+        inventorySaveContainer.SetActive(true);
     }
 
     private void HandleToolunEquipEvt(ToolUnEquipEvent evt)

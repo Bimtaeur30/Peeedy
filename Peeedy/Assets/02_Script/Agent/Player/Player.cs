@@ -8,7 +8,7 @@ public class Player : Agent
 
     private AgentStateMachine _stateMachine;
     private ICombatModule _combatModule;
-    private ToolHandlerModule _toolHandlerModule;
+    public ToolHandlerModule ToolHandlerModule { get; private set; }
 
     [field:SerializeField] public PlayerInputSO PlayerInput { get; private set; }
 
@@ -22,21 +22,35 @@ public class Player : Agent
     {
         base.AfterInitComponents();
         _combatModule = GetModule<ICombatModule>();
-        _toolHandlerModule = GetModule<ToolHandlerModule>();
+        ToolHandlerModule = GetModule<ToolHandlerModule>();
 
         PlayerInput.LeftMouseClickEvent += HandleAttackKeyPressed;
         PlayerInput.OnToolEquipEvent += HandleToolEquipKeyPressed;
         PlayerInput.OnToolUnEquipEvent += HandleToolUnEquipKeyPressed;
+        PlayerInput.OnToolSaveInventoryEvent += HandleToolSaveInventoryKeyPressed;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInput.LeftMouseClickEvent -= HandleAttackKeyPressed;
+        PlayerInput.OnToolEquipEvent -= HandleToolEquipKeyPressed;
+        PlayerInput.OnToolUnEquipEvent -= HandleToolUnEquipKeyPressed;
+        PlayerInput.OnToolSaveInventoryEvent -= HandleToolSaveInventoryKeyPressed;
+    }
+
+    private void HandleToolSaveInventoryKeyPressed()
+    {
+        ToolHandlerModule.SaveToolInventory();
     }
 
     private void HandleToolUnEquipKeyPressed()
     {
-        _toolHandlerModule.UnEquipTool();
+        ToolHandlerModule.UnEquipTool();
     }
 
     private void HandleToolEquipKeyPressed()
     {
-        _toolHandlerModule.EquipTool();
+        ToolHandlerModule.EquipTool();
     }
 
     private void HandleAttackKeyPressed()

@@ -6,6 +6,7 @@ public class ToolHandlerModule : MonoBehaviour, IModule
 {
     [Header("Settings")]
     [SerializeField] private EventChannelSO toolInfoCallEventChannel;
+
     [SerializeField] private float toolDetectiveRadius = 1.0f;
     [SerializeField] private LayerMask toolLayer;
 
@@ -69,25 +70,34 @@ public class ToolHandlerModule : MonoBehaviour, IModule
             _lastDetectedTool = null;
         }
     }
+    //public void EquipTool()
+    //{
+    //    if (_lastDetectedTool == null || IsToolEquiped) return;
 
+    //    CurrentlyEquipedTool = _lastDetectedTool;
+
+    //    _joint.connectedBody = CurrentlyEquipedTool.GetRigidbody();
+    //    CurrentlyEquipedTool.EquipTool();
+
+    //    toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform, CurrentlyEquipedTool.toolSO));
+    //    _lastDetectedTool = null;
+    //}
     public void EquipTool()
     {
         if (_lastDetectedTool == null || IsToolEquiped) return;
 
-        // 1. 참조 먼저 저장
-        CurrentlyEquipedTool = _lastDetectedTool;
+        HandleEquipTool(_lastDetectedTool);
+    }
 
-        // 2. 물리 조인트 및 사운드 실행
+
+    public void HandleEquipTool(Tool tool)
+    {
+        CurrentlyEquipedTool = tool;
+
         _joint.connectedBody = CurrentlyEquipedTool.GetRigidbody();
         CurrentlyEquipedTool.EquipTool();
 
-        // 3. [중요] '장착 완료' 이벤트를 먼저 보냅니다.
-        // Viewer가 이 이벤트를 먼저 받아서 UI 내용을 "내려놓기(Q)"로 바꿀 수 있게 합니다.
         toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform, CurrentlyEquipedTool.toolSO));
-
-        // 4. 그 다음 감지용 변수를 비워줍니다.
-        // 이때 ClearDetectedTool 내부에 HideToolLabel이 있다면 
-        // Viewer에서 "장착 중일 땐 무시"하는 로직이 필요합니다.
         _lastDetectedTool = null;
     }
 
@@ -109,5 +119,11 @@ public class ToolHandlerModule : MonoBehaviour, IModule
     {
         Gizmos.color = IsToolEquiped ? Color.green : Color.red;
         Gizmos.DrawWireSphere(transform.position, toolDetectiveRadius);
+    }
+    public void SaveToolInventory()
+    {
+        if (!IsToolEquiped) return;
+
+        toolInfoCallEventChannel.RaiseEvent(new ToolSaveToInventoryEvent(CurrentlyEquipedTool));
     }
 }

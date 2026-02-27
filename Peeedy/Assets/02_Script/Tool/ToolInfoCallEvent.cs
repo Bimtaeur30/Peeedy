@@ -22,3 +22,12 @@ public class ToolInfoCallEvent : GameEvent
         ToolSO = toolsO;
     }
 }
+
+public class ToolSaveToInventoryEvent : GameEvent
+{
+    public Tool Tool { get; private set; }
+    public ToolSaveToInventoryEvent(Tool tool)
+    {
+        Tool = tool;
+    }
+}

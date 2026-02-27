@@ -136,6 +136,33 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""809a3d7e-974d-43d5-b863-336027f20b8b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryPageUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9562aee-1ebd-445e-9c96-614a3cbf3b75"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToolSaveInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""80315974-1a46-4d6a-993c-e35a277c1e11"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -237,6 +264,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""BuildingEnter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fdf076e4-fbb2-4260-aa99-5edc4be65945"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b76d9d9f-461a-4594-bcb6-19fa5504f1d9"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryPageUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68afc8e0-1f16-4225-8ada-e707d9710aee"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToolSaveInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -250,6 +310,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_ToolEquip = m_Player.FindAction("ToolEquip", throwIfNotFound: true);
         m_Player_ToolUnEquip = m_Player.FindAction("ToolUnEquip", throwIfNotFound: true);
         m_Player_BuildingEnter = m_Player.FindAction("BuildingEnter", throwIfNotFound: true);
+        m_Player_InventoryToggle = m_Player.FindAction("InventoryToggle", throwIfNotFound: true);
+        m_Player_InventoryPageUp = m_Player.FindAction("InventoryPageUp", throwIfNotFound: true);
+        m_Player_ToolSaveInventory = m_Player.FindAction("ToolSaveInventory", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -335,6 +398,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ToolEquip;
     private readonly InputAction m_Player_ToolUnEquip;
     private readonly InputAction m_Player_BuildingEnter;
+    private readonly InputAction m_Player_InventoryToggle;
+    private readonly InputAction m_Player_InventoryPageUp;
+    private readonly InputAction m_Player_ToolSaveInventory;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -366,6 +432,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/BuildingEnter".
         /// </summary>
         public InputAction @BuildingEnter => m_Wrapper.m_Player_BuildingEnter;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/InventoryToggle".
+        /// </summary>
+        public InputAction @InventoryToggle => m_Wrapper.m_Player_InventoryToggle;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/InventoryPageUp".
+        /// </summary>
+        public InputAction @InventoryPageUp => m_Wrapper.m_Player_InventoryPageUp;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToolSaveInventory".
+        /// </summary>
+        public InputAction @ToolSaveInventory => m_Wrapper.m_Player_ToolSaveInventory;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -407,6 +485,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @BuildingEnter.started += instance.OnBuildingEnter;
             @BuildingEnter.performed += instance.OnBuildingEnter;
             @BuildingEnter.canceled += instance.OnBuildingEnter;
+            @InventoryToggle.started += instance.OnInventoryToggle;
+            @InventoryToggle.performed += instance.OnInventoryToggle;
+            @InventoryToggle.canceled += instance.OnInventoryToggle;
+            @InventoryPageUp.started += instance.OnInventoryPageUp;
+            @InventoryPageUp.performed += instance.OnInventoryPageUp;
+            @InventoryPageUp.canceled += instance.OnInventoryPageUp;
+            @ToolSaveInventory.started += instance.OnToolSaveInventory;
+            @ToolSaveInventory.performed += instance.OnToolSaveInventory;
+            @ToolSaveInventory.canceled += instance.OnToolSaveInventory;
         }
 
         /// <summary>
@@ -433,6 +520,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @BuildingEnter.started -= instance.OnBuildingEnter;
             @BuildingEnter.performed -= instance.OnBuildingEnter;
             @BuildingEnter.canceled -= instance.OnBuildingEnter;
+            @InventoryToggle.started -= instance.OnInventoryToggle;
+            @InventoryToggle.performed -= instance.OnInventoryToggle;
+            @InventoryToggle.canceled -= instance.OnInventoryToggle;
+            @InventoryPageUp.started -= instance.OnInventoryPageUp;
+            @InventoryPageUp.performed -= instance.OnInventoryPageUp;
+            @InventoryPageUp.canceled -= instance.OnInventoryPageUp;
+            @ToolSaveInventory.started -= instance.OnToolSaveInventory;
+            @ToolSaveInventory.performed -= instance.OnToolSaveInventory;
+            @ToolSaveInventory.canceled -= instance.OnToolSaveInventory;
         }
 
         /// <summary>
@@ -508,5 +604,26 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnBuildingEnter(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "InventoryToggle" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInventoryToggle(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "InventoryPageUp" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInventoryPageUp(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToolSaveInventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToolSaveInventory(InputAction.CallbackContext context);
     }
 }

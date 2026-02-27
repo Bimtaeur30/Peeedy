@@ -11,6 +11,9 @@ public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
     public event Action OnToolEquipEvent;
     public event Action OnToolUnEquipEvent;
     public event Action OnBuildingEnterEvent;
+    public event Action OnInventoryToggleEvent;
+    public event Action OnInventoryPageUpEvent;
+    public event Action OnToolSaveInventoryEvent;
 
     public Vector3 InputDirection { get; private set; }
 
@@ -64,6 +67,30 @@ public class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
         if (context.performed)
         {
             OnBuildingEnterEvent?.Invoke();
+        }
+    }
+
+    public void OnInventoryToggle(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnInventoryToggleEvent?.Invoke();
+        }
+    }
+
+    public void OnInventoryPageUp(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnInventoryPageUpEvent?.Invoke();
+        }
+    }
+
+    public void OnToolSaveInventory(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnToolSaveInventoryEvent?.Invoke();
         }
     }
 }
