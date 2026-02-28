@@ -33,10 +33,42 @@ public class Inventory : MonoBehaviour
         toolChannel.RemoveListener<ToolSaveToInventoryEvent>(AddTool);
     }
 
+    private void Start()
+    {
+        DrawPage();
+    }
+
+    #region 툴 장착 및 해제
+    private void ToolEquip()
+    {
+        if (_inventory.Count == 0 || _isActive == false) return;
+        Tool currentTool = _inventory[_currentIndex];
+        currentTool.gameObject.SetActive(true);
+        player.ToolHandlerModule.HandleEquipTool(currentTool);
+
+        _inventory.RemoveAt(_currentIndex);
+        _currentIndex = _currentIndex == 0 ? 0 : _currentIndex - 1;
+        DrawPage();
+        Debug.Log($"Equipped {currentTool.name} from inventory.");
+    }
+
+    private void AddTool(ToolSaveToInventoryEvent @event)
+    {
+        _inventory.Add(@event.Tool);
+        @event.Tool.gameObject.SetActive(false);
+        player.ToolHandlerModule.UnEquipTool();
+        DrawPage();
+
+        Debug.Log($"Added {@event.Tool.name} to inventory.");
+    }
+    #endregion
+
+    #region 인벤토리 조작 로직
     private void ToggleInventory()
     {
         _isActive = !_isActive;
         uiChannel.RaiseEvent(UIEvents.InventoryToggleEvent.Init(_isActive));
+
 
         if (_isActive)
         {
@@ -49,23 +81,23 @@ public class Inventory : MonoBehaviour
     }
     private void PageUP()
     {
+        if (_inventory.Count == 0 || _isActive == false) return;
+
         _currentIndex = (_currentIndex + 1) % _inventory.Count;
         ToolSO currentToolSO = _inventory[_currentIndex].toolSO;
 
-        uiChannel.RaiseEvent(UIEvents.InventoryDrawEvent.Init(currentToolSO));
+        DrawPage();
     }
 
-    private void ToolEquip()
+
+    private void DrawPage()
     {
-        if (_isActive == false) return;
-        Tool currentTool = _inventory[_currentIndex];
+        if (_inventory.Count == 0)        {
+            uiChannel.RaiseEvent(new InventoryNullDrawEvent());
+            return;
+        }
 
-        player.ToolHandlerModule.HandleEquipTool(currentTool);
+        uiChannel.RaiseEvent(UIEvents.InventoryDrawEvent.Init(_inventory[_currentIndex].toolSO, (_currentIndex + 1), _inventory.Count));
     }
-
-    private void AddTool(ToolSaveToInventoryEvent @event)
-    {
-        _inventory.Add(@event.Tool);
-        Debug.Log($"Added {@event.Tool.name} to inventory.");
-    }
+    #endregion
 }

@@ -28,11 +28,12 @@ public class ToolInfoViewer : MonoBehaviour
     }
     private void Update()
     {
-        if (_isInfoActivate)
+        if (_isInfoActivate && _currentSelectedTool != null)
         {
-            transform.position = _currentSelectedTool.position + new Vector3(0, 0, -0.01f); // 겹침 방지
+            transform.position = _currentSelectedTool.position + new Vector3(0, 0, -0.01f);
         }
     }
+
 
     private bool _isEquiped = false; // 장착 상태 추적
 
@@ -53,22 +54,25 @@ public class ToolInfoViewer : MonoBehaviour
             inventorySaveContainer.SetActive(false);
         }
     }
-
     private void HandleToolEquipEvt(ToolEquipEvent evt)
     {
         _isEquiped = true;
-        _isInfoActivate = true; // 장착 중에도 위치 업데이트는 계속 수행
+        _isInfoActivate = true;
 
-        toolInfoLabelUI.gameObject.SetActive(true); // 혹시 꺼졌다면 다시 킴
+        _currentSelectedTool = evt.ToolPosition; //  이게 핵심: "현재 장착한 툴"로 갱신
+
+        toolInfoLabelUI.gameObject.SetActive(true);
         keyTxt.text = "Q";
         toolNameTxt.text = "내려놓기";
 
         inventorySaveContainer.SetActive(true);
     }
-
     private void HandleToolunEquipEvt(ToolUnEquipEvent evt)
     {
         _isEquiped = false;
-        toolInfoLabelUI.gameObject.SetActive(false); // 내려놓으면 일단 UI 끔
+        _isInfoActivate = false;      //  상태도 같이 내려주고
+        _currentSelectedTool = null;  //  이전 타겟 참조 제거
+
+        toolInfoLabelUI.gameObject.SetActive(false);
     }
 }

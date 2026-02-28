@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public static class UIEvents
 {
@@ -33,10 +34,16 @@ public class InventoryToggleEvent : GameEvent
 }
 public class InventoryDrawEvent : GameEvent
 {
+    public int TotalPage;
+    public int CurrentPage;
     public ToolSO ToolSO;
-    public InventoryDrawEvent Init(ToolSO toolSO)
+    public InventoryDrawEvent Init(ToolSO toolSO, int currentPage, int totalPage)
     {
+        TotalPage = totalPage;
+        CurrentPage = currentPage;
         ToolSO = toolSO;
         return this;
     }
 }
+
+public class InventoryNullDrawEvent : GameEvent { }

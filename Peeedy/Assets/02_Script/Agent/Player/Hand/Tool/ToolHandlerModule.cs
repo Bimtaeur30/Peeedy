@@ -84,6 +84,7 @@ public class ToolHandlerModule : MonoBehaviour, IModule
     //}
     public void EquipTool()
     {
+        Debug.Log("EquipTool called");
         if (_lastDetectedTool == null || IsToolEquiped) return;
 
         HandleEquipTool(_lastDetectedTool);
@@ -92,12 +93,15 @@ public class ToolHandlerModule : MonoBehaviour, IModule
 
     public void HandleEquipTool(Tool tool)
     {
+        UnEquipTool(); // 이미 도구가 있다면 먼저 해제
+
         CurrentlyEquipedTool = tool;
 
         _joint.connectedBody = CurrentlyEquipedTool.GetRigidbody();
         CurrentlyEquipedTool.EquipTool();
 
         toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform, CurrentlyEquipedTool.toolSO));
+        Debug.Log($"Equipped tool: {CurrentlyEquipedTool.name}");
         _lastDetectedTool = null;
     }
 
