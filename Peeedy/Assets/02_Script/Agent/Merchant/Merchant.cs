@@ -1,43 +1,68 @@
 using System;
-using System.Runtime.InteropServices;
-using UnityEditor.ShaderGraph.Internal;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Merchant : Agent
 {
-    [SerializeField] private string targetSceneName;
-    [SerializeField] private BuildingSO buildingSO;
-    [SerializeField] private EventChannelSO buildingEnterEvent;
-    [SerializeField] private PlayerInputSO playerInputSO;
-    [field: SerializeField] public EventChannelSO UIChannel { get; private set; }
 
-
+    [SerializeField] private string[] messages;
+    [SerializeField] private float messageDelay;
     private ChatHandlerModule _chatModule;
-    private bool _canEnter = false;
-
-    private void OnEnable()
-    {
-        playerInputSO.OnBuildingEnterEvent += HandleBuildingEnter;
-    }
-
-    private void HandleBuildingEnter()
-    {
-        if (_canEnter)
-        {
-            _chatModule.NewChat("상점에 입장하셨습니다.");
-            UIChannel.RaiseEvent(UIEvents.FadeEvent.Init(true, 1f, () =>
-            {
-                SceneManager.LoadScene(targetSceneName);
-            }));
-        }
-    }
-
     protected override void AfterInitComponents()
     {
         base.AfterInitComponents();
         _chatModule = GetModule<ChatHandlerModule>();
     }
+
+    private void Start()
+    {
+        StartCoroutine(Message());
+    }
+
+    IEnumerator Message()
+    {
+        int index = 0;
+
+        while(true)
+        {
+            _chatModule.NewChat(messages[UnityEngine.Random.Range(0, messages.Length - 1)]);
+            yield return new WaitForSeconds(messageDelay);
+        }
+    }
+
+    //[SerializeField] private string targetSceneName;
+    //[SerializeField] private BuildingSO buildingSO;
+    //[SerializeField] private EventChannelSO buildingEnterEvent;
+    //[SerializeField] private PlayerInputSO playerInputSO;
+    //[field: SerializeField] public EventChannelSO UIChannel { get; private set; }
+
+
+    //private ChatHandlerModule _chatModule;
+    //private bool _canEnter = false;
+
+    //private void OnEnable()
+    //{
+    //    playerInputSO.OnBuildingEnterEvent += HandleBuildingEnter;
+    //}
+
+    //private void HandleBuildingEnter()
+    //{
+    //    if (_canEnter)
+    //    {
+    //        _chatModule.NewChat("상점에 입장하셨습니다.");
+    //        UIChannel.RaiseEvent(UIEvents.FadeEvent.Init(true, 1f, () =>
+    //        {
+    //            SceneManager.LoadScene(targetSceneName);
+    //        }));
+    //    }
+    //}
+
+    //protected override void AfterInitComponents()
+    //{
+    //    base.AfterInitComponents();
+    //    _chatModule = GetModule<ChatHandlerModule>();
+    //}
     //private void OnTriggerEnter(Collider other)
     //{
     //    if (other.gameObject.CompareTag("Player"))

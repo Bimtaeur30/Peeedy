@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class RadioTool : Tool
 {
+    //[SerializeField] private SoundClipSO song;
     [SerializeField] private AudioClip song;
     private AudioSource source;
     protected override void Awake()
@@ -14,6 +15,7 @@ public class RadioTool : Tool
     {
         base.EquipTool();
         source.clip = song;
+        //soundChannel.RaiseEvent(SoundEvents.PlaySoundEvent.Init(transform.position, song, 0));
         source.Play();
     }
 

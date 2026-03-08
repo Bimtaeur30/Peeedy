@@ -6,14 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Tool : MonoBehaviour
 {
-    [SerializeField] private AudioClip toolEquipClip;
-    [SerializeField] private AudioClip toolDropClip;
+    [SerializeField] private SoundClipSO toolEquipClip;
+    [SerializeField] private SoundClipSO toolDropClip;
     [SerializeField] private EventChannelSO toolInfoCallEventChannel;
+    [field: SerializeField] protected EventChannelSO soundChannel { get; private set; }
     [field:SerializeField] public ToolSO toolSO { get; private set; }
     private Rigidbody body;
     private AudioSource audioSource;
 
-    //public bool IsToolEquiped { get; private set; }
     protected virtual void Awake()
     {
         body = GetComponent<Rigidbody>();
@@ -22,11 +22,13 @@ public abstract class Tool : MonoBehaviour
 
     public virtual void EquipTool()
     {
-        audioSource.PlayOneShot(toolEquipClip);
+        soundChannel.RaiseEvent(SoundEvents.PlaySoundEvent.Init(transform.position, toolEquipClip, 0));
+        //audioSource.PlayOneShot(toolEquipClip);
     }
+
     public virtual void UnEquipTool()
     {
-        audioSource.PlayOneShot(toolDropClip);
+        soundChannel.RaiseEvent(SoundEvents.PlaySoundEvent.Init(transform.position, toolDropClip, 0));
     }
 
     public virtual void ShowToolLabel()

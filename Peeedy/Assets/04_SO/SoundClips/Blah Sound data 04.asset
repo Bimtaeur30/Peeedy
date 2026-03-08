@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe377175ab1b0e489408f59f8fad7ea, type: 3}
-  m_Name: Key tool
+  m_Script: {fileID: 11500000, guid: 9d2429126968fa545a161a6da89acfc9, type: 3}
+  m_Name: Blah Sound data 04
   m_EditorClassIdentifier: 
-  <toolName>k__BackingField: "\uC5F4\uC1E0"
-  <toolDetectRange>k__BackingField: 2
-  <messageSO>k__BackingField: {fileID: 11400000, guid: 38d88d856d1c7864e99b63d1a1f1e201, type: 2}
+  audioTypes: 0
+  audioClip: {fileID: 8300000, guid: e476f0feca314924c890afb5bd7c4115, type: 3}
+  loop: 0
+  randomizePitch: 0
+  randomPitchModifier: 0.1
+  volume: 1
+  pitch: 1

@@ -150,4 +150,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyTxt: {fileID: 2478140658499308572}
-  moneyEvent: {fileID: 11400000, guid: 85cbc4250d056d142ac30ef48a8ef5a8, type: 2}
+  playerChannel: {fileID: 11400000, guid: 9f0f8f6cbfac5ad499125b7414f95dbc, type: 2}

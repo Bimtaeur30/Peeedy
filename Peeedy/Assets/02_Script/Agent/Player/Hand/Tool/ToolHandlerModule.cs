@@ -70,18 +70,6 @@ public class ToolHandlerModule : MonoBehaviour, IModule
             _lastDetectedTool = null;
         }
     }
-    //public void EquipTool()
-    //{
-    //    if (_lastDetectedTool == null || IsToolEquiped) return;
-
-    //    CurrentlyEquipedTool = _lastDetectedTool;
-
-    //    _joint.connectedBody = CurrentlyEquipedTool.GetRigidbody();
-    //    CurrentlyEquipedTool.EquipTool();
-
-    //    toolInfoCallEventChannel.RaiseEvent(new ToolEquipEvent(CurrentlyEquipedTool.gameObject.transform, CurrentlyEquipedTool.toolSO));
-    //    _lastDetectedTool = null;
-    //}
     public void EquipTool()
     {
         Debug.Log("EquipTool called");

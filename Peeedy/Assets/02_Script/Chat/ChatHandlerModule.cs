@@ -7,21 +7,22 @@ public class ChatHandlerModule : MonoBehaviour, IModule
     [SerializeField] private PoolItemSO poolItem;
     [SerializeField] private Chat chatPrefab;
     [SerializeField] private float chatLiftTime = 1.5f;
-    [SerializeField] private AudioClip[] dummyVoiceSfxs;
+    [SerializeField] private SoundClipSO[] dummyVoiceSfxs;
+    [SerializeField] private EventChannelSO soundChannel;
 
     Chat _currentChat;
     private Coroutine _chatTimerCoroutine;
-    private AudioSource _audioSource;
+
     public void Initialize(ModuleOwner owner)
     {
-        _audioSource = GetComponent<AudioSource>();
     }
 
     public void NewChat(string message)
     {
         _currentChat?.Close();
 
-        _audioSource.PlayOneShot(dummyVoiceSfxs[Random.Range(0, dummyVoiceSfxs.Length - 1)]);
+        soundChannel.RaiseEvent(SoundEvents.PlaySoundEvent.Init(transform.position, dummyVoiceSfxs[Random.Range(0, dummyVoiceSfxs.Length - 1)], 0));
+        //_audioSource.PlayOneShot(dummyVoiceSfxs[Random.Range(0, dummyVoiceSfxs.Length - 1)]);
         //_currentChat = Instantiate(chatPrefab, transform);
         _currentChat = poolManager.Pop<Chat>(poolItem);
         _currentChat.Setup(message, gameObject.transform);

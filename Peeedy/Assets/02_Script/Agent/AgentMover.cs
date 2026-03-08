@@ -61,7 +61,10 @@ public class AgentMover : MonoBehaviour, IModule, IMover
     {
         if (CanManualMovement)
         {
-            _rigidbody.linearVelocity = _movement * moveSpeed * _moveSpeedMultiplier;
+            var yVelo = _rigidbody.linearVelocity.y;
+            var velo = _movement * moveSpeed * _moveSpeedMultiplier;
+            velo.y = yVelo;
+            _rigidbody.linearVelocity = velo;
 
         }
 

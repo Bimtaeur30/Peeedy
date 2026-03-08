@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Cinemachine;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -67,6 +68,9 @@ public class Inventory : MonoBehaviour
     private void ToggleInventory()
     {
         _isActive = !_isActive;
+        //float _sceneSpeed = _isActive ? 0f : 1f;
+        ////Time.timeScale = _sceneSpeed;
+
         uiChannel.RaiseEvent(UIEvents.InventoryToggleEvent.Init(_isActive));
 
 

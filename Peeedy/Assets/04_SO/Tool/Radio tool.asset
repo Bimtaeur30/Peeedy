@@ -15,3 +15,5 @@ MonoBehaviour:
   <toolName>k__BackingField: "\uB77C\uB514\uC624"
   <toolDetectRange>k__BackingField: 2
   <messageSO>k__BackingField: {fileID: 11400000, guid: 8548494d55a454141bb8aa97183e6e10, type: 2}
+  <toolCost>k__BackingField: 5000
+  <toolPrefab>k__BackingField: {fileID: 2024201969527310100, guid: 6357d528c3cda254b800e3a2e444a8cc, type: 3}
