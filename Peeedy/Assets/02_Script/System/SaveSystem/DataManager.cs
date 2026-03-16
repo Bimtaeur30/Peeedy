@@ -2,7 +2,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Overlays;
 using UnityEngine;
 using static SystemEvents;
 
@@ -39,9 +38,14 @@ public class DataManager : MonoBehaviour
         SystemChannel.RemoveListener<LoadPrefEvent>(HandleLoadPrefEvent);
     }
 
+    private void OnApplicationQuit()
+    {
+        HandleSavePrefEvent();
+    }
+
     #region 데이터 세이브 로직
 
-    private void HandleSavePrefEvent(SavePrefEvent evt)
+    private void HandleSavePrefEvent(SavePrefEvent evt = null)
     {
         string saveData = GetSceneSaveData();
         PlayerPrefs.SetString(prefKey, saveData);

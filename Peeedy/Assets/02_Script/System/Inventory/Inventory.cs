@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Unity.Cinemachine;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+
     [SerializeField] private EventChannelSO uiChannel;
     [SerializeField] private EventChannelSO toolChannel;
+    [SerializeField] private EventChannelSO playerChannel;
+
     [SerializeField] private PlayerInputSO inputSO;
     private List<Tool> _inventory = new List<Tool>();
     private int _currentIndex = 0;
@@ -21,17 +24,20 @@ public class Inventory : MonoBehaviour
         inputSO.OnInventoryToggleEvent += ToggleInventory;
         inputSO.OnInventoryPageUpEvent += PageUP;
         inputSO.OnToolEquipEvent += ToolEquip;
+        playerChannel.AddListener<LoadInventoryTools>(InitInventory);
 
-        toolChannel.AddListener<ToolSaveToInventoryEvent>(AddTool);
+        toolChannel.AddListener<ToolSaveToInventoryEvent>(AddToolRequest);
     }
+
 
     private void OnDisable()
     {
         inputSO.OnInventoryToggleEvent -= ToggleInventory;
         inputSO.OnInventoryPageUpEvent -= PageUP;
         inputSO.OnToolEquipEvent -= ToolEquip;
+        playerChannel.RemoveListener<LoadInventoryTools>(InitInventory);
 
-        toolChannel.RemoveListener<ToolSaveToInventoryEvent>(AddTool);
+        toolChannel.RemoveListener<ToolSaveToInventoryEvent>(AddToolRequest);
     }
 
     private void Start()
@@ -39,28 +45,50 @@ public class Inventory : MonoBehaviour
         DrawPage();
     }
 
+    private void InitInventory(LoadInventoryTools tools)
+    {
+        foreach(ToolSO toolSO in tools.Tools)
+        {
+            GameObject tool = toolSO.toolPrefab;
+            GameObject clonedTool = Instantiate(tool);
+            clonedTool.gameObject.SetActive(false);
+
+            AddTool(clonedTool.GetComponent<Tool>());
+        }
+    }
+
     #region 툴 장착 및 해제
     private void ToolEquip()
     {
         if (_inventory.Count == 0 || _isActive == false) return;
         Tool currentTool = _inventory[_currentIndex];
+        playerChannel.RaiseEvent(PlayerEvents.RemoveInventoryTool.Init(currentTool.toolSO));
+
         currentTool.gameObject.SetActive(true);
         player.ToolHandlerModule.HandleEquipTool(currentTool);
 
         _inventory.RemoveAt(_currentIndex);
         _currentIndex = _currentIndex == 0 ? 0 : _currentIndex - 1;
+
+
         DrawPage();
         Debug.Log($"Equipped {currentTool.name} from inventory.");
     }
 
-    private void AddTool(ToolSaveToInventoryEvent @event)
+    private void AddToolRequest(ToolSaveToInventoryEvent @event)
     {
-        _inventory.Add(@event.Tool);
-        @event.Tool.gameObject.SetActive(false);
+        AddTool(@event.Tool);
+        playerChannel.RaiseEvent(PlayerEvents.AddInventoryTool.Init(@event.Tool.toolSO));
+    }
+
+    private void AddTool(Tool tool)
+    {
+        _inventory.Add(tool);
+        tool.gameObject.SetActive(false);
         player.ToolHandlerModule.UnEquipTool();
         DrawPage();
 
-        Debug.Log($"Added {@event.Tool.name} to inventory.");
+        Debug.Log($"Added {tool.name} to inventory.");
     }
     #endregion
 

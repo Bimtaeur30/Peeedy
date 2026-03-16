@@ -5,5 +5,6 @@ using Unity.Behavior;
 public enum DummyState
 {
     IDLE = 0,
-    MOVE = 1
+    MOVE = 1,
+    ANGRY = 2
 }

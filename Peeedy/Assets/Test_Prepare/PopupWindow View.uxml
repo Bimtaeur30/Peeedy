@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Test_Prepare/PopupWindow%20Style.uss?fileID=7433441132597879392&amp;guid=f164f82861bbe4d418a47f7e184f0808&amp;type=3#PopupWindow Style" />
+    <ui:VisualElement name="TopContainer" style="flex-basis: 120px; flex-direction: row;">
+        <ButtonData text="버튼" button-index="1" name="Button1" class="btn-blue" />
+        <ButtonData text="버튼" button-index="2" name="Button2" class="btn-blue" />
+        <ButtonData text="버튼" button-index="3" name="Button3" class="btn-blue" />
+    </ui:VisualElement>
+    <ui:VisualElement name="PopUpWindow" enabled="true" class="pop-up-window" style="opacity: 1; visibility: visible;">
+        <ui:VisualElement name="PopUpContent" class="pop-up-content" style="width: 800px; flex-grow: 0; flex-shrink: 0; height: 600px; background-color: rgb(200, 200, 200); border-top-left-radius: 24px; border-top-right-radius: 24px; border-bottom-right-radius: 24px; border-bottom-left-radius: 24px;">
+            <ui:VisualElement name="Top" style="flex-grow: 0; border-bottom-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); flex-shrink: 0;" />
+            <ui:VisualElement name="Content" style="flex-grow: 0; flex-shrink: 0;" />
+            <ui:VisualElement name="Bottom" style="flex-grow: 1; border-top-width: 1px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); justify-content: flex-end; align-items: flex-end; flex-shrink: 0;">
+                <ui:Button text="Button" class="btn-blue" style="flex-basis: 75px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

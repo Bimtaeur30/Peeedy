@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +11,10 @@ public class Dummy : Agent
 
     public ChatHandlerModule ChatHandlerModule { get; private set; }
     public NavMeshAgent agent { get; private set; }
+    private AngryModule angryModule;
+    private BehaviorGraphAgent behaviorGA;
+    private BlackboardVariable<DummyState> _dummyState;
+
 
     Coroutine _routine;
     DummyMessageSO _messageSO;
@@ -17,6 +23,7 @@ public class Dummy : Agent
     {
         base.InitializeComponents();
         agent = GetComponent<NavMeshAgent>();
+        behaviorGA = GetComponent<BehaviorGraphAgent>();
         agent.updateRotation = false;
     }
 
@@ -24,7 +31,10 @@ public class Dummy : Agent
     {
         base.AfterInitComponents();
         ChatHandlerModule = GetModule<ChatHandlerModule>();
+        angryModule = GetModule<AngryModule>();
     }
+
+    #region 화남게이지 로직
 
     // ToolRangeVisualizer가 Enter 시 호출
     public void EnterToolRange(ToolSO toolSO)
@@ -87,17 +97,30 @@ public class Dummy : Agent
                 yield break;
             }
 
-            int idx = Random.Range(0, _messageSO.Messages.Length);
+            int idx = UnityEngine.Random.Range(0, _messageSO.Messages.Length);
             ChatHandlerModule.NewChat(_messageSO.Messages[idx]);
             giftCallEventChannel.RaiseEvent(new GiftCallEvent(3000));
+
+            angryModule.AddAngryRage(UnityEngine.Random.Range(10, 30));
             //Debug.Log(_messageSO.Messages[idx]);
 
-            yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2.5f));
         }
     }
 
     private void OnDisable()
     {
         StopMessageLoop();
+    }
+    #endregion
+
+    public void AngryBomb()
+    {
+        if (behaviorGA.GetVariable("State", out _dummyState))
+        {
+            Debug.Log($"변경 전: {_dummyState.Value}");
+            _dummyState.Value = DummyState.ANGRY;
+            Debug.Log($"변경 후: {_dummyState.Value}");
+        }
     }
 }

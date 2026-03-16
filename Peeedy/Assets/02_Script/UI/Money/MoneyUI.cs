@@ -14,6 +14,6 @@ public class MoneyUI : MonoBehaviour
 
     private void OnEvent(MoneyChanged @event)
     {
-        moneyTxt.text = "ภÜพื: "+@event.amount.ToString();
+        moneyTxt.text = @event.amount.ToString();
     }
 }
