@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class Dummy : Agent
 {
     [SerializeField] private EventChannelSO giftCallEventChannel;
+    [SerializeField] private EventChannelSO systemChannel;
 
     public ChatHandlerModule ChatHandlerModule { get; private set; }
     public NavMeshAgent agent { get; private set; }
@@ -118,9 +119,10 @@ public class Dummy : Agent
     {
         if (behaviorGA.GetVariable("State", out _dummyState))
         {
-            Debug.Log($"변경 전: {_dummyState.Value}");
             _dummyState.Value = DummyState.ANGRY;
-            Debug.Log($"변경 후: {_dummyState.Value}");
+            behaviorGA.Restart();
+
+            systemChannel.RaiseEvent(SystemEvents.policeCallEvent);
         }
     }
 }

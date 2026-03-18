@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using TMPro;
@@ -44,6 +45,7 @@ public class AngryModule : MonoBehaviour, IModule
         AngryPercent += amount;
         SetGageBar();
         CheckAngryRage();
+        FadeInBar();
 
         StopAllCoroutines();
         StartCoroutine(AngryCoolDownCor());
@@ -54,13 +56,13 @@ public class AngryModule : MonoBehaviour, IModule
         if (AngryPercent >= 90)
         {
             dummy.AngryBomb();
-            Debug.Log("aaaaaaaaaaaaaaaaaaaaa");
         }
     }
 
     private IEnumerator AngryCoolDownCor()
     {
         yield return new WaitForSeconds(3f);
+        FadeOutBar();
 
         while(AngryPercent > 0)
         {
@@ -69,4 +71,7 @@ public class AngryModule : MonoBehaviour, IModule
             SetGageBar();
         }
     }
+
+    private void FadeInBar() => canvasGroup.DOFade(1f, 1f);
+    private void FadeOutBar() => canvasGroup.DOFade(0f, 1f);
 }
